@@ -5,7 +5,24 @@ RUN LD_LIBRARY_PATH="" && apt-get update -y
 RUN LD_LIBRARY_PATH="" && apt-get install octave -y
 
 
-RUN octave --eval "pkg load all"
+RUN mkdir /home/octave
+RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/control-3.0.0.tar.gz -P /home/octave
+RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/general-2.0.0.tar.gz -P /home/octave
+RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/signal-1.3.2.tar.gz -P /home/octave
+RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/image-2.4.1.tar.gz -P /home/octave
+RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/io-2.4.1.tar.gz -P /home/octave
+RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/statistics-1.2.4.tar.gz -P /home/octave
+WORKDIR /home/octave
+# Install Octave forge packages
+RUN octave --eval "cd /home/octave; \
+                   more off; \
+                   pkg install -auto -global -verbose \
+                   control-3.0.0.tar.gz \
+                   general-2.0.0.tar.gz \
+                   signal-1.3.2.tar.gz \
+                   image-2.4.1.tar.gz \
+                   io-2.4.1.tar.gz \
+                   statistics-1.2.4.tar.gz"
 
 RUN echo 'cellfun (@(x) pkg ("load", x.name), pkg ("list"));' >> /etc/octave.conf
 RUN echo more off >> /etc/octave.conf
