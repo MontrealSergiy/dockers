@@ -14,7 +14,7 @@ RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/
 RUN wget http://sourceforge.net/projects/octave/files/Octave%20Forge%20Packages/Individual%20Package%20Releases/statistics-1.2.4.tar.gz -P /home/octave
 WORKDIR /home/octave
 # Install Octave forge packages
-RUN octave --eval "cd /home/octave; \
+RUN LD_LIBRARY_PATH="" && octave --eval "cd /home/octave; \
                    more off; \
                    pkg install -auto -global -verbose \
                    control-3.0.0.tar.gz \
