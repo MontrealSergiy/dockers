@@ -1,4 +1,4 @@
-FROM: simexp/minc-toolkit:1.9.15
+FROM simexp/minc-toolkit:1.9.15
 
 RUN LD_LIBRARY_PATH="" && add-apt-repository ppa:octave/stable octave -y 
 RUN LD_LIBRARY_PATH="" && apt-get update -y 
