@@ -28,4 +28,12 @@ RUN echo 'cellfun (@(x) pkg ("load", x.name), pkg ("list"));' >> /etc/octave.con
 RUN echo more off >> /etc/octave.conf
 RUN echo save_default_options\(\'-7\'\)\; >> /etc/octave.conf
 RUN echo graphics_toolkit gnuplot >> /etc/octave.conf
+
+RUN cd /usr/bin ; mv octave octave_bin
+RUN echo '#!/usr/bin/env bash' > octave;  echo 'LD_LIBRARY_PATH="" && octave_bin "$@"' >> octave
+RUN chmod +x octave
+
+
 ENV OCTAVE_VERSION_INITFILE /etc/octave.conf
+
+
