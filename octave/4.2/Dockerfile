@@ -16,13 +16,13 @@ WORKDIR /home/octave
 # Install Octave forge packages
 RUN LD_LIBRARY_PATH="" && octave --eval "cd /home/octave; \
                    more off; \
-                   pkg install -auto -global -verbose \
+                   pkg install -global -verbose \
                    control-3.0.0.tar.gz \
                    general-2.0.0.tar.gz \
                    signal-1.3.2.tar.gz \
                    image-2.4.1.tar.gz \
-                   io-2.4.1.tar.gz \
-                   statistics-1.2.4.tar.gz"
+                   io-2.4.12.tar.gz \
+                   statistics-1.4.0.tar.gz"
 
 RUN echo 'cellfun (@(x) pkg ("load", x.name), pkg ("list"));' >> /etc/octave.conf
 RUN echo more off >> /etc/octave.conf
